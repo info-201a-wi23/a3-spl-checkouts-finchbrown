@@ -40,3 +40,8 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+
+# big file
+
+2017-checkouts.csv

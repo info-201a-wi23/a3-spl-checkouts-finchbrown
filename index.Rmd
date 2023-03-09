@@ -1,86 +1,64 @@
 ---
-title: "A3: SPL Library Checkouts"
+title: "Impacts of Covid on Library Checkouts"
 output: html_document
 ---
+#### By Finch Brown
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("loading_code.R")}
+
+```
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+For better or worse, the dramatic lifestyle changes that many people undertook when Covid hit in 2020 have shifted and returned closer to what we used to regard as normal. We may not want to be reminded of the stretch of time when we only interacted with people in our "bubbles" and mostly halted our public existence, but taking a look at specific patterns that changed during this period can be enlightening, and a good reminder of the trajectory we've followed over the past few years. The data I have presented about people's library habits spanning from 2017 to early 2023 are a glimpse into this (recent) past.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+```{r, echo = F, warning = F, message = F, code = readLines("summary.R")}
+```
 
-These will likely be calculated using your DPLYR skills, answering questions such as:
+Overall checkouts at the Seattle Public Libraries had been fluctuating in a fairly consistent manner between 2017 and just before Covid, but plummeted soon after Covid hit. Ignoring checkouts of technologies such as headphones and hotspots, we find that there were `r latest_checkouts` checkouts in January of 2023, which has not yet caught up to the previous peak in January 2019 at `r max_checkouts` monthly checkouts, which was similar to number of checkouts in January of 2020, at `r pre_covid`. This quickly plunged after the pandemic hit, especially when looking just at physical checkouts. There were `r pre_covid_physical` checkouts of physical items in January of 2020, compared with just `r min_physical` in all of August, 2020. A final interesting summary statistic is the maximum number of monthly checkouts of items tagged as nonfiction, which comes to `r max_nonfiction` in June of 2020. I would guess that this peak was related to momentum around the Black Lives Matter movement.
 
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
 
 ### The Dataset
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
+The Seattle Public Library (SPL) collects anonymous data about checkouts. They are one of the only libraries in the US to do this, because of a longstanding practice of ensuring that library-goers can borrow books freely without worrying about their reading habits being monitored or profited from (SPL 2022). SPL's data spans from 2005 to the present. The data from 2005-2017 were retrospectively collected from an art installation, since the SPL's official data collection effort started in 2017 (SPL 2022). Their datasets include things like titles, material type, number of checkouts per month, dates, subjects, authors, and publisher information. 
+
+When examining these data, it is important to be aware of its limitations and ethical concerns. Overall, the ethical concern of anonymity and freedom of information is addressed by removing any personal identifiers. The effort of collecting these data actually counteracts some of the ethical concerns of gatekeeping information about books, which are an important avenue for access to information and therefore hold a rich narrative about our broader cultural context. In terms of logistical limitations however, these data are hard to work with because of an inconsistent system of categories. The same book or author is not always listed in the same format, so they can be hard to identify and analyze. 
 
 
-### First Trends Over Time Chart
+The Seattle Public Library (SPL). “How a Digital Artwork Helped The
+  Seattle Public Library Lead in Book Data.” Shelf Talk Blog, December
+  6, 2022. [https://shelftalkblog.wordpress.com/2022/12/06/how-a-digital   -artwork-helped-the-seattle-public-library-lead-in-book-data/](https://shelftalkblog.wordpress.com/2022/12/06/how-a-digital   -artwork-helped-the-seattle-public-library-lead-in-book-data/). 
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+### Impact of Covid on Digital and Physical Library Checkouts
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+First, let's take a look at the difference between physical and digital checkouts over time. When Covid hit in early 2020, physical checkouts plummeted. Digital checkouts increased around this same time, but you can see that they had already been increasing at a similar rate for several years. Physical checkouts had already been decreasing in the years before Covid, but not nearly at as sharp a rate as they did following the start of the pandemic. 
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+``````{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("dig-phys.R")}
+``````
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
+### Popular Item Checkouts Unphased by Covid
 
-Here's an example of how to run an R script inside an RMarkdown file:
+While I was experimenting with questions of how people's habits changed as Covid hit, I stumbled upon some interesting numbers while trying to filter the Seattle Public Library data into a more manageably sized dataframe. I had written a line of code eliminating the rows from my dataset that showed items with fewer than 400 checkouts per month, but then I decided to use a different dataset that I wouldn't need to pair down. I had reused some of my old code and I forgot about the line I had written filtering out less popular items until I had already created a new plot. When I noticed and removed that line, I was surprised to see that my plot changed noticeably.
 
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+I decided to incorporate the filtered data to highlight an emerging narrative. As you can see below, these two lines show diverging patterns: when looking at checkouts for all items, there is an obvious dip around the time that Covid hit. However, the data for popular items (those with at least 400 checkouts per month) remains mostly consistent before and after Covid, and actually spikes slightly as overall checkouts plummeted. 
+
+If most people's experiences were similar to mine, when Covid hit people continued to check out books from the library but had to order them online and pick them up without entering the building. This may have eliminated the opportunity to 'judge a book by its cover', so to speak, and pick up random books spontaneously. As libraries have opened and people have returned to their in-person habits, we have probably started checking out more and more books that we didn't plan to. This may be an under-appreciated aspect of being able to go physically to the library!
+
+
+``````{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("overall-vs-popular.R")}
+``````
+
+### Discrepancies in Fiction and Nonfiction Checkout Trends
+
+Finally, I searched the SPL dataset to find items that had "fiction" or "nonfiction" in the description of their subject, which almost every item included. These data, interestingly, are visually similar to the plot of overall versus most popular checkouts. I am curious whether this pattern means that a small number of nonfiction books make up a disproportionate amount of the most popular items checked out, despite being the minority of overall checkouts. 
+
+One possible inference from these data is that people were checking out nonfiction items with information about the pandemic as it hit. However, looking closer at the plot, the small peak in nonfiction checkouts happens around halfway through 2020, rather than right at the beginning of the pandemic. Taking that into consideration, I wonder if this peak is related to the Black Lives Matter movement that happened in the summer of 2020 rather than to the pandemic. 
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE, code = readLines("fiction-nonfiction.R")}
+
 ```
 
-### Second Trends Over Time Chart
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
-```
-
-### Your Choice
-
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
-```
 
 
